@@ -8,23 +8,26 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_test/flutter_test.dart';
 
+// Assuming your package name is 'calculatorbmi' based on the import path.
+// If not, you might need to adjust this path.
 import 'package:calculatorbmi/main.dart';
 
 void main() {
-  testWidgets('Counter increments smoke test', (WidgetTester tester) async {
+  testWidgets('BMI Calculator loads and displays initial state', (WidgetTester tester) async {
     // Build our app and trigger a frame.
-    await tester.pumpWidget(const MyApp());
+    // --- FIX ---
+    // The main app widget defined in main.dart is BMICalculatorApp, not MyApp.
+    await tester.pumpWidget(const BMICalculatorApp());
 
-    // Verify that our counter starts at 0.
-    expect(find.text('0'), findsOneWidget);
-    expect(find.text('1'), findsNothing);
+    // Verify that our app title is present.
+    expect(find.text('BMI Calculator'), findsOneWidget);
 
-    // Tap the '+' icon and trigger a frame.
-    await tester.tap(find.byIcon(Icons.add));
-    await tester.pump();
+    // Verify that it defaults to Metric.
+    expect(find.text('Metric'), findsOneWidget);
+    expect(find.text('Imperial'), findsOneWidget);
+    expect(find.text('Height (cm)'), findsOneWidget);
 
-    // Verify that our counter has incremented.
-    expect(find.text('0'), findsNothing);
-    expect(find.text('1'), findsOneWidget);
+    // Verify the initial result text is shown.
+    expect(find.text('Result will appear here'), findsOneWidget);
   });
 }
